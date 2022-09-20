@@ -1,0 +1,31 @@
+DOCTOR TABLES
+
+Doctor Info
+CREATE TABLE user_doctor(
+    id SERIAL PRIMARY KEY, 
+    name VARCHAR(30) NOT NULL, 
+    email VARCHAR(30) UNIQUE NOT NULL, 
+    password VARCHAR(100) NOT NULL, 
+    qualification VARCHAR[], 
+    experience VARCHAR[], 
+    hospital VARCHAR(50), 
+    location VARCHAR(30),
+    specialty INT[])
+
+Specialties
+CREATE TABLE specialty(id SERIAL PRIMARY KEY, name VARCHAR(30) NOT NULL)
+
+Doctor's Specialties
+CREATE TABLE doctor_specialties(id SERIAL PRIMARY KEY, doctor_id INT NOT NULL, specialty_id INT NOT NULL)
+
+PATIENT TABLES
+
+Patient Info
+CREATE TABLE user_patient(
+    id SERIAL PRIMARY KEY, 
+    name VARCHAR(30) NOT NULL, 
+    email VARCHAR(30) UNIQUE NOT NULL, 
+    password VARCHAR(100) NOT NULL, 
+    past_diseases VARCHAR[],
+    location VARCHAR(30), 
+    looking_for INT[])
