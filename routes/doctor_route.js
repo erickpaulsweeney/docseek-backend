@@ -58,8 +58,7 @@ router.get("/specialties", async (req, res) => {
             console.log(err);
             return res.status(500).send(err);
         } else {
-            console.log(result.rows);
-            const list = result.rows;
+            const list = resultrows;
             return res.status(200).json(list);
         }
     })
