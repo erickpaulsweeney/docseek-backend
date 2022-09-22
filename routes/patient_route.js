@@ -5,9 +5,27 @@ const router = express.Router();
 
 router.post("/profile/save", async (req, res) => {
     const userId = req.userInfo.id;
-    const { id, pastDiseases, location, lookingFor } = req.body;
+    const {
+        id,
+        past_diseases,
+        location,
+        looking_for,
+        blood_group,
+        weight,
+        sex,
+        age,
+    } = req.body;
 
-    if (!id || !pastDiseases || !location || !lookingFor) {
+    if (
+        !id ||
+        !past_diseases ||
+        !location ||
+        !looking_for ||
+        !blood_group ||
+        !weight ||
+        !sex ||
+        !age
+    ) {
         return res.status(400).send({ message: "All fields are required." });
     }
 
@@ -17,15 +35,24 @@ router.post("/profile/save", async (req, res) => {
 
     const text =
         "UPDATE user_patient " +
-        "SET past_diseases = $2, location = $3, looking_for = $4 " + 
+        "SET past_diseases = $2, location = $3, looking_for = $4, blood_group = $5, weight = $6, sex = $7, age = $8 " +
         "WHERE id = $1 RETURNING *";
-    const values = [id, pastDiseases, location, lookingFor];
+    const values = [
+        id,
+        past_diseases,
+        location,
+        looking_for,
+        blood_group,
+        weight,
+        sex,
+        age,
+    ];
     dbPool.query(text, values, (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).send(err);
         } else {
-            console.log(result.rows)
+            console.log(result.rows);
             const patientInfo = result.rows[0];
             return res.status(200).json(patientInfo);
         }
@@ -46,7 +73,45 @@ router.get("/profile", async (req, res) => {
             const patientInfo = result.rows[0];
             return res.status(200).json(patientInfo);
         }
-    })
+    });
+});
+
+router.post("/consultation/new", async (req, res) => {
+    const patient_id = req.userInfo.id;
+    const { doctor_id, date, time, status } = req.body;
+
+    const checkText = "SELECT timeslots FROM user_doctor WHERE id = $1";
+    const checkValue = [doctor_id];
+
+    await dbPool.query(checkText, checkValue, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        } else {
+            const schedule = result.rows[0].timeslots.slots;
+            const formatted = new Date(date);
+            const day = formatted.getDay();
+            console.log(day);
+            if (!schedule[day].includes(time)) {
+                return res.status(400).send({ message: "Invalid timeslot." });
+            }
+
+            const text =
+                "INSERT INTO consultations(doctor_id, patient_id, date, time, status) " +
+                "VALUES($1, $2, $3, $4, $5) RETURNING *";
+            const values = [doctor_id, patient_id, date, time, status];
+
+            dbPool.query(text, values, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send(err);
+                } else {
+                    const consultInfo = result.rows[0];
+                    return res.status(200).send(consultInfo);
+                }
+            });
+        }
+    });
 });
 
 module.exports = router;

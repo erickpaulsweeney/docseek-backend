@@ -23,8 +23,20 @@
 
 `GET doctor/list`: Get list of all doctors
 
+`POST doctor/timeslots`: Save doctor's timeslots
+
+`POST doctor/rate`: Save doctor's consultation rate
+
+`POST doctor/consultation/update`: Update consultation notes and prescription
+
+`POST doctor/consultation/update-status`: Update consultation status
+
+`GET doctor/consultation`: Get doctor's consultations
+
 ### Patient
 
 `GET patient/profile`: Get patient's profile
 
 `POST patient/profile/save`: Save patient's profile
+
+`POST patient/consultation/new`: Request consultation with doctor

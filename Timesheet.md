@@ -13,8 +13,14 @@ Estimated time: 40 hours
 
 ## Setting up Frontend Landing
 ```
+21 September 2022
+
 03:06 - 04:30: Working on sign up/log in
 05:37 - 06:35: Working on sign up/log in
 06:35 - 11:05: Working on doctor profile
 11:05 - 12:00: Working on patient profile
+
+22 September 2022
+03:40 - 06:02: Working on patient profile
+06:02 - 12:15: Working on patient home page and consulation booking backend
 ```
