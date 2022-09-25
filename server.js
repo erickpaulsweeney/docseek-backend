@@ -53,4 +53,7 @@ function authenticateRequest(req, res, next) {
 // Password Reset
 // List of Doctors
 // Booking of Consultations
+
 // Doctor Rejecting or Accepting Consultation
+// Doctor Setting Available Timeslots
+// Deployment

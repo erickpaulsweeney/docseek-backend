@@ -13,6 +13,10 @@
 
 `POST auth/token`: Refresh access token
 
+`POST password-reset`: Request a reset link
+
+`POST password-reset/:userId/:token`: Use reset token and update password
+
 ### Doctor
 
 `GET doctor/profile`: Get doctor's profile

@@ -24,3 +24,18 @@ Estimated time: 40 hours
 03:40 - 06:02: Working on patient profile
 06:02 - 12:15: Working on patient home page and consulation booking backend
 ```
+
+## Setting up Consultation Booking
+```
+23 September 2022
+
+03:00 - 12:00: Working on patient's booking page
+```
+
+## Setting up Password Reset Functionality
+```
+25 September 2022
+
+11:13 - 11:34: Working on password reset backend
+11:34 - 01:36: Working on password reset frontend
+```

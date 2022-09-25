@@ -78,7 +78,7 @@ router.get("/profile", async (req, res) => {
 
 router.post("/consultation/new", async (req, res) => {
     const patient_id = req.userInfo.id;
-    const { doctor_id, date, time, status } = req.body;
+    const { doctor_id, date, time, status, cost } = req.body;
 
     const checkText = "SELECT timeslots FROM user_doctor WHERE id = $1";
     const checkValue = [doctor_id];
@@ -91,15 +91,14 @@ router.post("/consultation/new", async (req, res) => {
             const schedule = result.rows[0].timeslots.slots;
             const formatted = new Date(date);
             const day = formatted.getDay();
-            console.log(day);
             if (!schedule[day].includes(time)) {
                 return res.status(400).send({ message: "Invalid timeslot." });
             }
 
             const text =
-                "INSERT INTO consultations(doctor_id, patient_id, date, time, status) " +
-                "VALUES($1, $2, $3, $4, $5) RETURNING *";
-            const values = [doctor_id, patient_id, date, time, status];
+                "INSERT INTO consultations(doctor_id, patient_id, date, time, status, cost) " +
+                "VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
+            const values = [doctor_id, patient_id, date, time, status, cost];
 
             dbPool.query(text, values, (err, result) => {
                 if (err) {
@@ -110,6 +109,23 @@ router.post("/consultation/new", async (req, res) => {
                     return res.status(200).send(consultInfo);
                 }
             });
+        }
+    });
+});
+
+router.get("/consultation", async (req, res) => {
+    const id = req.userInfo.id;
+
+    const text = "SELECT * FROM consultations WHERE patient_id = $1";
+    const values = [id];
+
+    dbPool.query(text, values, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        } else {
+            const consultInfo = result.rows;
+            return res.status(200).send(consultInfo);
         }
     });
 });

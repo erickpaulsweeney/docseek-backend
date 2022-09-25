@@ -1,3 +1,13 @@
+AUTH TABLE
+
+Reset Password Token
+CREATE TABLE reset_token(
+    user_id VARCHAR(10),
+    token VARCHAR(100),
+    created_at DATE, 
+    expired_in DATE
+)
+
 DOCTOR TABLES
 
 Doctor Info

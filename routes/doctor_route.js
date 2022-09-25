@@ -220,10 +220,10 @@ router.post("/consultation/update", async (req, res) => {
 });
 
 router.get("/consultation", async (req, res) => {
-    const doctor_id = req.userInfo.id;
+    const { id } = req.query;
 
     const text = "SELECT * FROM consultations WHERE doctor_id = $1";
-    const values = [doctor_id];
+    const values = [id];
 
     dbPool.query(text, values, (err, result) => {
         if (err) {
