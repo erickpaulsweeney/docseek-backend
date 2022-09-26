@@ -1,5 +1,7 @@
 # DocSeek Backend
 
+### [Postman JSON Link](https://www.getpostman.com/collections/773c081b75fb46149ebd)
+
 ## Endpoints
 
 ### Auth

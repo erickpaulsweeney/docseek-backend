@@ -204,7 +204,7 @@ router.post("/password-reset", async (req, res) => {
                             } else {
                                 const input = {
                                     email,
-                                    link: `http://localhost:3000/password-reset/${userId}/${token}`,
+                                    link: `https://docseek-mern.netlify.app/password-reset/${userId}/${token}`,
                                 };
 
                                 await sendEmail(input);
@@ -220,7 +220,7 @@ router.post("/password-reset", async (req, res) => {
 
                         const input = {
                             email,
-                            link: `http://localhost:3000/password-reset/${userId}/${token}`,
+                            link: `https://docseek-mern.netlify.app/password-reset/${userId}/${token}`,
                         };
 
                         await sendEmail(input);
