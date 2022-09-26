@@ -130,4 +130,17 @@ router.get("/consultation", async (req, res) => {
     });
 });
 
+router.get("/list", async (req, res) => {
+    const text = "SELECT * FROM user_patient";
+    dbPool.query(text, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        } else {
+            const list = result.rows;
+            return res.status(200).json(list);
+        }
+    });
+});
+
 module.exports = router;

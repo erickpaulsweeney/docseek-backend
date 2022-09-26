@@ -44,16 +44,3 @@ function authenticateRequest(req, res, next) {
         return res.status(403).send(error);
     }
 }
-
-// List of Tables
-// Doctor Sign up and Log in
-// Patient Sign up and Log in
-// Doctor Profile
-// Patient Profile
-// Password Reset
-// List of Doctors
-// Booking of Consultations
-
-// Doctor Rejecting or Accepting Consultation
-// Doctor Setting Available Timeslots
-// Deployment

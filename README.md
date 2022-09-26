@@ -44,3 +44,7 @@
 `POST patient/profile/save`: Save patient's profile
 
 `POST patient/consultation/new`: Request consultation with doctor
+
+`GET patient/consultation`: Get patient's consultations
+
+`GET patient/list`: Get list of all patients

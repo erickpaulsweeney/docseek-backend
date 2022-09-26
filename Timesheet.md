@@ -39,3 +39,11 @@ Estimated time: 40 hours
 11:13 - 11:34: Working on password reset backend
 11:34 - 01:36: Working on password reset frontend
 ```
+
+## Finishing up Doctor Side
+```
+26 September 2022
+
+03-00 - 07-15: Working on showing and cancelling consults
+07-15 - 09:13: Working on editing timeslots
+```

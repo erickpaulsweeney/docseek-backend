@@ -150,14 +150,10 @@ router.post("/rate", async (req, res) => {
 router.post("/consultation/update-status", async (req, res) => {
     const { id, status } = req.body;
     const doctor_id = req.userInfo.id;
+    console.log(id, status, doctor_id)
 
-    if (status === "Pending") {
-        return res.status(400).send({ message: "Unauthorized operation." });
-    }
-
-    const text =
-        "UPDATE consultations SET status = $3 WHERE id = $1 AND doctor_id = $2 RETURNING *";
-    const values = [id, doctor_id, status];
+    const text = "SELECT * FROM consultations WHERE id = $1 AND doctor_id = $2";
+    const values = [id, doctor_id];
 
     dbPool.query(text, values, (err, result) => {
         if (err) {
@@ -171,15 +167,6 @@ router.post("/consultation/update-status", async (req, res) => {
             }
 
             const consultInfo = result.rows[0];
-            console.log(status, consultInfo.status);
-            if (
-                (status === "Approved" || status === "Rejected") &&
-                consultInfo.status !== "Pending"
-            ) {
-                return res
-                    .status(400)
-                    .send({ message: "Unauthorized operation." });
-            }
 
             if (status === "Completed" && consultInfo.status !== "Approved") {
                 return res
@@ -193,7 +180,24 @@ router.post("/consultation/update-status", async (req, res) => {
                     .send({ message: "Unauthorized operation." });
             }
 
-            return res.status(200).send(consultInfo);
+            if (consultInfo.status === "Rejected") {
+                return res
+                    .status(400)
+                    .send({ message: "Unauthorized operation." });
+            }
+
+            const text =
+                "UPDATE consultations SET status = $3 WHERE id = $1 AND doctor_id = $2 RETURNING *";
+            const values = [id, doctor_id, status];
+
+            dbPool.query(text, values, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send(err);
+                } else {
+                    return res.status(200).send(consultInfo);
+                }
+            });
         }
     });
 });
